@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClient\\ServerClient\\ServerClient.csproj",
+      "projectUniqueName": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClientConnection\\ServerClient\\ServerClient\\ServerClient.csproj",
       "projectName": "ServerClient",
-      "projectPath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClient\\ServerClient\\ServerClient.csproj",
+      "projectPath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClientConnection\\ServerClient\\ServerClient\\ServerClient.csproj",
       "packagesPath": "C:\\Users\\elgun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClient\\ServerClient\\obj\\",
+      "outputPath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClientConnection\\ServerClient\\ServerClient\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\elgun\\AppData\\Roaming\\NuGet\\NuGet.Config",

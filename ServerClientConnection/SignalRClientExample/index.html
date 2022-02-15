@@ -15,6 +15,11 @@
       $(() => {
         const conn = new signalR.HubConnectionBuilder()
           .withUrl(`${serverAddr}/myhub`)
+          // .withAutomaticReconnect()
+          // connection kesilerse -> 0 - 2 - 10 - 30 sn baghlanmagha chalishacaq
+          // -> end connecting attempt
+          .withAutomaticReconnect([1000, 1000, 2000, 3000, 5000, 10000])
+          // baghlanti var lakin kesildiyi anlarda istifade olunur
           .build();
 
         conn.start();
@@ -22,6 +27,9 @@
         conn.on("receiveMessage", (msg) => {
           $("div").append(`<p>${msg}</p>`);
         });
+
+        // baghlanti hech qurulmadigh anlarda bu funksiya istifade olunur
+
         $("#send").click(() => {
           const message = $("#message").val();
 

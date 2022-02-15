@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o2uNdwL3yU8Rp+DExhtWCJiombWNIBuLfdIlpdQQpbDBYFHcQr+JcfGB6qCeXum6FAuBmxh2U0qocU/hXYNJ2Q==",
+  "dgSpecHash": "KErj1Z6NthUx5fnfJkC29DQn5onrqi3C4vah6PbTDV5gczFuaZmPV6jmx6eOTO9yBdCRRvdB78o3F6HkJFZYKw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClient\\ServerClient\\ServerClient.csproj",
+  "projectFilePath": "C:\\Users\\elgun\\GitRepos\\SignalR\\ServerClientConnection\\ServerClient\\ServerClient\\ServerClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\elgun\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
   ],
