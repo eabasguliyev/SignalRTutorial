@@ -7,23 +7,25 @@
     <input id="message" type="text" placeholder="Enter a message" />
     <button id="send">Send</button>
 
-    <div></div>
+    <div id="status" style="display: none"></div>
+    <div id="messages"></div>
     <script src="signalr.min.js"></script>
     <script src="jquery.min.js"></script>
     <script>
       const serverAddr = "https://localhost:5001";
+      const status = $("#status");
       $(() => {
         const conn = new signalR.HubConnectionBuilder()
           .withUrl(`${serverAddr}/myhub`)
           // .withAutomaticReconnect()
           // connection kesilerse -> 0 - 2 - 10 - 30 sn baghlanmagha chalishacaq
           // -> end connecting attempt
-          .withAutomaticReconnect([1000, 1000, 2000, 3000, 5000, 10000])
+          .withAutomaticReconnect([1000, 1000, 1000, 1000, 1000])
           // baghlanti var lakin kesildiyi anlarda istifade olunur
           .build();
 
         conn.on("receiveMessage", (msg) => {
-          $("div").append(`<p>${msg}</p>`);
+          $("#messages").append(`<p>${msg}</p>`);
         });
 
         // conn.start();
@@ -39,6 +41,42 @@
             }, 2000);
           }
         }
+
+        // Events:
+        // onreconnecting: yeniden baglantini qurmagha cehd etmeden evvel trigger olur
+        // onreconnected: yeniden baghlanti qurulduqda trigger olur
+        // onclose: yeniden baghlanti qurmaq cehdleri ughursuz oldughu anda trigger olur
+
+        conn.onreconnecting((error) => {
+          status.css("background-color", "blue");
+          status.css("color", "white");
+          status.html("Trying to connect...");
+          status.fadeIn(2000, () => {
+            setTimeout(() => {
+              status.fadeOut(2000);
+            }, 2000);
+          });
+        });
+        conn.onreconnected((connectionId) => {
+          status.css("background-color", "green");
+          status.css("color", "white");
+          status.html("Connection Established...");
+          status.fadeIn(2000, () => {
+            setTimeout(() => {
+              status.fadeOut(2000);
+            }, 2000);
+          });
+        });
+        conn.onclose((connectionId) => {
+          status.css("background-color", "red");
+          status.css("color", "white");
+          status.html("Can't connect...");
+          status.fadeIn(2000, () => {
+            setTimeout(() => {
+              status.fadeOut(2000);
+            }, 2000);
+          });
+        });
 
         $("#send").click(() => {
           const message = $("#message").val();
