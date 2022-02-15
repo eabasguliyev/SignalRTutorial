@@ -22,13 +22,23 @@
           // baghlanti var lakin kesildiyi anlarda istifade olunur
           .build();
 
-        conn.start();
-
         conn.on("receiveMessage", (msg) => {
           $("div").append(`<p>${msg}</p>`);
         });
 
+        // conn.start();
+        start();
+
         // baghlanti hech qurulmadigh anlarda bu funksiya istifade olunur
+        async function start() {
+          try {
+            await conn.start();
+          } catch (error) {
+            setTimeout(() => {
+              start();
+            }, 2000);
+          }
+        }
 
         $("#send").click(() => {
           const message = $("#message").val();
