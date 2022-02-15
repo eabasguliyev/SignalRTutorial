@@ -1,0 +1,14 @@
+﻿using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
+
+namespace ServerClient.Hubs
+{
+    public class MyHub: Hub
+    {
+        public async Task SendMessageAsync(string message)
+        {
+            // some logic
+            await Clients.All.SendAsync("receiveMessage", message);
+        }
+    }
+}

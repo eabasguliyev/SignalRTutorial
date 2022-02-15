@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Client Example</title>
+  </head>
+  <body>
+    <input id="message" type="text" placeholder="Enter a message" />
+    <button id="send">Send</button>
+
+    <div></div>
+    <script src="signalr.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <script>
+      const serverAddr = "https://localhost:5001";
+      $(() => {
+        const conn = new signalR.HubConnectionBuilder()
+          .withUrl(`${serverAddr}/myhub`)
+          .build();
+
+        conn.start();
+
+        conn.on("receiveMessage", (msg) => {
+          $("div").append(`<p>${msg}</p>`);
+        });
+        $("#send").click(() => {
+          const message = $("#message").val();
+
+          conn
+            .invoke("SendMessageAsync", message)
+            .catch((error) => console.log(`Error: ${error}`));
+        });
+      });
+    </script>
+  </body>
+</html>
