@@ -28,6 +28,20 @@
           $("#messages").append(`<p>${msg}</p>`);
         });
 
+        conn.on("userJoined", (connectionId) => {
+          status.html(`User ${connectionId} joined`);
+          status.css("background-color", "green");
+          status.css("color", "white");
+          animation(2000);
+        });
+
+        conn.on("userLeft", (connectionId) => {
+          status.html(`User ${connectionId} left`);
+          status.css("background-color", "red");
+          status.css("color", "white");
+          animation(2000);
+        });
+
         // conn.start();
         start();
 
@@ -51,31 +65,19 @@
           status.css("background-color", "blue");
           status.css("color", "white");
           status.html("Trying to connect...");
-          status.fadeIn(2000, () => {
-            setTimeout(() => {
-              status.fadeOut(2000);
-            }, 2000);
-          });
+          animation(2000);
         });
         conn.onreconnected((connectionId) => {
           status.css("background-color", "green");
           status.css("color", "white");
           status.html("Connection Established...");
-          status.fadeIn(2000, () => {
-            setTimeout(() => {
-              status.fadeOut(2000);
-            }, 2000);
-          });
+          animation(2000);
         });
         conn.onclose((connectionId) => {
           status.css("background-color", "red");
           status.css("color", "white");
           status.html("Can't connect...");
-          status.fadeIn(2000, () => {
-            setTimeout(() => {
-              status.fadeOut(2000);
-            }, 2000);
-          });
+          animation(2000);
         });
 
         $("#send").click(() => {
@@ -86,6 +88,14 @@
             .catch((error) => console.log(`Error: ${error}`));
         });
       });
+
+      function animation(duration) {
+        status.fadeIn(duration, () => {
+          setTimeout(() => {
+            status.fadeOut(duration);
+          }, duration);
+        });
+      }
     </script>
   </body>
 </html>
