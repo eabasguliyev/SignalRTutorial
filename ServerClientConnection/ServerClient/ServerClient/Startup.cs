@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ServerClient.Business;
 using ServerClient.Hubs;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace ServerClient
                     .SetIsOriginAllowed(origin => true);
             }));
             services.AddSignalR();
+            services.AddTransient<MyBusiness>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +45,7 @@ namespace ServerClient
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<MyHub>("/myhub");
+                endpoints.MapControllers();
             });
         }
     }

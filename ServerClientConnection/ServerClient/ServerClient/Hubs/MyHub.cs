@@ -13,11 +13,12 @@ namespace ServerClient.Hubs
         {
             ConnectedClients = new List<string>();
         }
-        public async Task SendMessageAsync(string message)
-        {
-            // some logic
-            await Clients.All.SendAsync("receiveMessage", message);
-        }
+
+        //public async Task SendMessageAsync(string message)
+        //{
+        //    // some logic
+        //    await Clients.All.SendAsync("receiveMessage", message);
+        //}
 
 
         // Connection Events Handler
