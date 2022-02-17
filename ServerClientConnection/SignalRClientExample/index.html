@@ -4,7 +4,21 @@
     <title>Client Example</title>
   </head>
   <body>
+    <div style="background-color: gray; color: white">
+      <p id="connectionId"></p>
+    </div>
+    <label for="A">A</label>
+    <input type="radio" name="group" value="A" id="A" />
+    <label for="B">B</label>
+    <input type="radio" name="group" value="B" id="B" />
+    <label for="C">C</label>
+    <input type="radio" name="group" value="C" id="C" />
+    <button id="subscribe">Subscribe to group</button>
+    <br />
     <input id="message" type="text" placeholder="Enter a message" />
+    <br />
+    <textarea id="clientIds" placeholder="Connection ids"></textarea>
+    <textarea id="groupNames" placeholder="Group Names"></textarea>
     <button id="send">Send</button>
 
     <div id="status" style="display: none"></div>
@@ -17,6 +31,7 @@
     <script>
       const serverAddr = "https://localhost:5001";
       const status = $("#status");
+      let userConnectionId = "";
       $(() => {
         const conn = new signalR.HubConnectionBuilder()
           // .withUrl(`${serverAddr}/myhub`)
@@ -53,6 +68,10 @@
           $("#clientList").html(code);
         });
 
+        conn.on("receiveConnectionId", (connectionId) => {
+          userConnectionId = connectionId;
+          $("#connectionId").html(`Your connection id is ${userConnectionId}`);
+        });
         // conn.start();
         start();
 
@@ -91,11 +110,53 @@
           animation(2000);
         });
 
+        // $("#send").click(() => {
+        //   const message = $("#message").val();
+        //   const clientIds = $("#clientIds")
+        //     .val()
+        //     .split(",")
+        //     .map((id) => id.trim());
+        //   conn
+        //     .invoke("SendMessageAsync", message, clientIds)
+        //     .catch((error) => console.log(`Error: ${error}`));
+        // });
+
+        // $("#send").click(() => {
+        //   const message = $("#message").val();
+        //   const groupName = $("input[name='group']:checked").val();
+        //   const clientIds = $("#clientIds")
+        //     .val()
+        //     .split(",")
+        //     .map((id) => id.trim());
+        //   conn
+        //     .invoke("SendMessageAsync", message, groupName, clientIds)
+        //     .catch((error) => console.log(`Error: ${error}`));
+        // });
+
+        // $("#send").click(() => {
+        //   const message = $("#message").val();
+        //   const groupNames = $("#groupNames")
+        //     .val()
+        //     .split(",")
+        //     .map((n) => n.trim());
+        //   conn
+        //     .invoke("SendMessageAsync", message, groupNames)
+        //     .catch((error) => console.log(`Error: ${error}`));
+        // });
+
         $("#send").click(() => {
           const message = $("#message").val();
-
+          const groupName = $("input[name='group']:checked").val();
           conn
-            .invoke("SendMessageAsync", message)
+            .invoke("SendMessageAsync", message, groupName)
+            .catch((error) => console.log(`Error: ${error}`));
+        });
+
+        $("#subscribe").click(() => {
+          if (userConnectionId.length == 0) return;
+          const groupName = $("input[name='group']:checked").val();
+          conn
+            .invoke("addGroup", userConnectionId, groupName)
             .catch((error) => console.log(`Error: ${error}`));
         });
       });
