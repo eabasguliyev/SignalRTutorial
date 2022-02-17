@@ -45,6 +45,7 @@ namespace ServerClient
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<MyHub>("/myhub");
+                endpoints.MapHub<MessageHub>("/messagehub");
                 endpoints.MapControllers();
             });
         }

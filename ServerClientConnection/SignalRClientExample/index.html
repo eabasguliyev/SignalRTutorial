@@ -19,7 +19,8 @@
       const status = $("#status");
       $(() => {
         const conn = new signalR.HubConnectionBuilder()
-          .withUrl(`${serverAddr}/myhub`)
+          // .withUrl(`${serverAddr}/myhub`)
+          .withUrl(`${serverAddr}/messagehub`)
           // .withAutomaticReconnect()
           // connection kesilerse -> 0 - 2 - 10 - 30 sn baghlanmagha chalishacaq
           // -> end connecting attempt
