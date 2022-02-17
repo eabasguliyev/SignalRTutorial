@@ -9,6 +9,9 @@
 
     <div id="status" style="display: none"></div>
     <div id="messages"></div>
+    <div id="container">
+      <ul id="clientList"></ul>
+    </div>
     <script src="signalr.min.js"></script>
     <script src="jquery.min.js"></script>
     <script>
@@ -40,6 +43,13 @@
           status.css("background-color", "red");
           status.css("color", "white");
           animation(2000);
+        });
+
+        conn.on("connectedClients", (clients) => {
+          const code = clients.reduce((acc, curr) => {
+            return acc + `<li>${curr}</li>`;
+          }, "");
+          $("#clientList").html(code);
         });
 
         // conn.start();
